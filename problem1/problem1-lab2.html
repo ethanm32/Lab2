@@ -5,9 +5,46 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="textbox" value="Enter your name">
-    <input type="textbox" value="Enter your number">
-    <input type="textbox" value="Enter your email">
-    <input type="button" value="Add contact">
+    <input type="textbox" id="name">
+    <label for="Name"></label>
+    <input type="textbox"id="number">
+    <label for="Number"></label>
+    <input type="textbox" id="email">
+    <label for="Email"></label>
+    <input type="button" value="Add contact" onclick="AddContact()">
+    <table id="table1">
+        
+        <tr class="header">
+            <th>
+                Name
+            </th>
+            <th>
+                Number
+            </th>
+            <th>Email</th>
+        </tr>
+        <tr>
+            
+        </tr>
+        <tr>
+            
+        </tr>
+        <tr>
+            
+        </tr>
+    </table>
 </body>
+<script>
+    function AddContact() {
+       var newTable = document.getElementById("table1")
+       var row = newTable.insertRow(-1);
+       var cell1 = row.insertCell(0)
+       var cell2 = row.insertCell(1)
+       var cell3 = row.insertCell(2)
+
+       cell1.innerHTML = document.getElementById("name").value
+       cell2.innerHTML = document.getElementById("number").value
+       cell3.innerHTML = document.getElementById("email").value
+    }
+</script>
 </html>
