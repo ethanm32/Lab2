@@ -12,6 +12,7 @@
     <input type="textbox" id="email">
     <label for="Email"></label>
     <input type="button" value="Add contact" onclick="AddContact()">
+    <input type="text" id="searchInput" onkeyup="search()" placeholder="Search here...">
     <table id="table1">
         
         <tr class="header">
@@ -23,16 +24,9 @@
             </th>
             <th>Email</th>
         </tr>
-        <tr>
-            
-        </tr>
-        <tr>
-            
-        </tr>
-        <tr>
-            
-        </tr>
+        
     </table>
+
 </body>
 <script>
     function AddContact() {
@@ -45,6 +39,31 @@
        cell1.innerHTML = document.getElementById("name").value
        cell2.innerHTML = document.getElementById("number").value
        cell3.innerHTML = document.getElementById("email").value
+    }
+
+    function search() {
+        var nodiv = document.createElement("div");
+        var userInput = document.getElementById("searchInput");
+        var filter = userInput.value.toUpperCase();
+        var table = document.getElementById("table1");
+        var row = document.getElementsByTagName("tr");
+        for (var i=0;i < row.length; i++)
+        {
+            tabledivs = row[i].getElementsByTagName("td")[0];
+            if(tabledivs)
+            {
+                var value = tabledivs.textContent || tabledivs.innerText;
+                if(value.toUpperCase().indexOf(filter) > -1) {
+                    row[i].style.display = "";
+                    
+
+                } else {
+                    row[i].style.display = "none";
+                    var nodiv = document.createElement("div");
+                
+                }
+            }
+        }
     }
 </script>
 </html>
