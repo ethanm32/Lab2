@@ -9,7 +9,7 @@
     <label for="Name"></label>
     <input type="textbox"id="number">
     <label for="Number"></label>
-    <input type="textbox" id="email">
+    <input type="email" id="email">
     <label for="Email"></label>
     <input type="button" value="Add contact" onclick="AddContact()">
     <input type="text" id="searchInput" onkeyup="search()" placeholder="Search here...">
@@ -19,7 +19,7 @@
             <th>
                 Name
             </th>
-            <th>
+            <th onclick="sortAsc()">
                 Number
             </th>
             <th>Email</th>
@@ -35,10 +35,19 @@
        var cell1 = row.insertCell(0)
        var cell2 = row.insertCell(1)
        var cell3 = row.insertCell(2)
+       var emailValidate = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+       if(emailValidate.test(document.getElementById("email").value)) {
 
-       cell1.innerHTML = document.getElementById("name").value
-       cell2.innerHTML = document.getElementById("number").value
-       cell3.innerHTML = document.getElementById("email").value
+        cell1.innerHTML = document.getElementById("name").value
+       
+        cell2.innerHTML = document.getElementById("number").value
+       
+        cell3.innerHTML = document.getElementById("email").value;
+       }
+       else {
+            console.log('error');
+       }
+       
     }
 
     function search() {
@@ -49,7 +58,7 @@
         var row = document.getElementsByTagName("tr");
         for (var i=0;i < row.length; i++)
         {
-            tabledivs = row[i].getElementsByTagName("td")[0];
+            tabledivs = row[i].getElementsByTagName("td")[1];
             if(tabledivs)
             {
                 var value = tabledivs.textContent || tabledivs.innerText;
@@ -62,6 +71,32 @@
                     var nodiv = document.createElement("div");
                 
                 }
+            }
+        }
+    }
+
+    function sortAsc() {
+        var table = document.getElementById("table1");
+        var first,second,row, startSort, i;
+        var sorting = true;  
+        while(sorting) {
+            sorting = false;
+            row = table.rows;
+
+            for(i=1; i < (row.length - 1); i++)
+            {
+                startSort = false;
+                first = row[i].getElementsByTagName("td")[0];
+                second = row[i+1].getElementsByTagName("td")[0];
+
+                if(first.innerHTML.toLowerCase() > second.innerHTML.toLowerCase()) {
+                    startSort = true;
+                    break;
+                }
+            }
+            if(startSort) {
+                row[i].parentNode.insertBefore(row[i + 1], row[i]);
+                sorting = true;
             }
         }
     }
