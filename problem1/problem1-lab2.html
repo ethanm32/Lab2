@@ -29,8 +29,11 @@
 
 </body>
 <div id="error" style="display: none;">Error!. Enter the correct values</div>
+<div id="noresult" style="display: none;">No results</div>
+
 <script>
     function AddContact() {
+       
        var newTable = document.getElementById("table1")
        var row = newTable.insertRow(-1);
        var cell1 = row.insertCell(0)
@@ -58,6 +61,7 @@
     }
 
     function search() {
+        var check = 0;
         var nodiv = document.createElement("div");
         var userInput = document.getElementById("searchInput");
         var filter = userInput.value.toUpperCase();
@@ -65,20 +69,30 @@
         var row = document.getElementsByTagName("tr");
         for (var i=0;i < row.length; i++)
         {
+            check = 0;
             tabledivs = row[i].getElementsByTagName("td")[1];
             if(tabledivs)
             {
                 var value = tabledivs.textContent || tabledivs.innerText;
                 if(value.toUpperCase().indexOf(filter) > -1) {
                     row[i].style.display = "";
-                    
+                    document.getElementById("noresult").style.display = "none";
+
+
 
                 } else {
                     row[i].style.display = "none";
-                    var nodiv = document.createElement("div");
+                    if(check == 0) {
+                        document.getElementById("noresult").style.display = "inline-block";
+                        check = 1;
+                    }
+                    
+                    
+                    
                 
                 }
             }
+
         }
     }
 
@@ -108,4 +122,18 @@
         }
     }
 </script>
+<style>
+    table, td, th {
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    
+
+    #table1 tr:nth-child(odd){
+        background-color: lightgray;
+    }
+
+    
+</style>
 </html>
