@@ -1,0 +1,29 @@
+<html>
+<script>
+fetch('https://jsonplaceholder.typicode.com/posts')
+  .then(response => response.json())
+  .then(json => {
+   const data = json.map(content => {return content.body})
+   console.log(data.filter(wordFreqCheck))
+  })
+
+  
+   function wordFreqCheck(data) {
+    const wordFreq = {}
+    data.split(' ').map(eachWord =>  {
+    if(wordFreq[eachWord]) {
+        wordFreq[eachWord]++; 
+    } 
+    else {
+        wordFreq[eachWord] = 1;
+    }
+    console.log(wordFreq)
+   })
+
+   }
+   
+
+
+
+</script>
+</html>
