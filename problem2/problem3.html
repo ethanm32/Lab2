@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Github API</title>
+</head>
+<body>
+    <div id="main-body">
+    <input type="text" id="searchUser">
+    <button onclick="search()">Search</button>
+    <div id="user-profile">
+    <h4>User Profile</h4>
+    <div><img id="picture" style="width: 100px;height:100px" src="" alt=''/></div>
+    <div id="name">Name: </div>
+    <hr>
+    <div id="username">UserName: </div>
+    <hr>
+    <div id="email">Email: </div>
+    <hr>
+    <div id="location">Location: </div>
+    <hr>
+    <div id="no_of_gists">Number Of Gists: </div>
+    <hr>
+    </div>
+    
+    <div id="user-repos">
+        <h4>User Repos</h4>
+    </div>
+    </div>
+</body>
+<style>
+    #user-repos {
+        margin-left: 20px;
+        border: 1px solid;
+        border-radius: 5px;
+        position: absolute;
+        top: 21px;
+        left: 200px;
+        height: 340px;
+        width: 400px;
+        overflow-y: scroll;
+        margin-top: 30px;
+    }
+
+    #user-profile {
+        
+        border: 1px solid;
+        border-radius: 5px;
+        height: 340px;
+        width: 200px;
+    }
+
+    #main-body {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 355px;
+        width: 550px;
+    }
+    hr {
+        width: 95%;
+        margin-left: 0;
+    }
+
+    #searchUser {
+        width: 400px;
+        border-radius: 2px;
+        height: 30px;
+        margin-bottom: 15px;
+    }
+
+    button {
+        height: 35px;
+        width: 130px;
+    }
+</style>
+<script>
+    function search() {
+        let user = document.getElementById('searchUser').value;
+        fetch('https://api.github.com/users/' + user)
+            .then(function (response) {
+            return response.json();
+            })
+            .then(function (data) {
+            addData(data);
+            })
+            .catch(function (err) {
+            console.log(err);
+            })
+
+            
+            fetch('https://api.github.com/users/' + user + '/repos')
+            .then(function (response) {
+            return response.json();
+            })
+            .then(function (data) {
+            AddRepoData(data);
+            })
+            .catch(function (err) {
+            console.log(err);
+            });
+            
+            function addData(data) {
+                var img = document.getElementById('picture');
+                img.src = data.avatar_url;
+                document.getElementById('name').innerHTML = 'Name: ' + data.name;
+                document.getElementById('username').innerHTML = 'UserName: ' + data.login;
+                document.getElementById('email').innerHTML = 'Email: ' + data.email;
+                document.getElementById('location').innerHTML = 'Email: ' + data.location;
+                document.getElementById('location').innerHTML = 'Location: ' + data.location;
+                document.getElementById('no_of_gists').innerHTML = 'Number Of Gists: ' + data.public_gists;
+
+            }
+
+            
+
+            function AddRepoData(data) {
+                var container = document.getElementById("user-repos");
+                container.innerHTML = "<h4>User Repos</h4>";
+                for(let i=0;i <data.length;i++) {
+                    
+                    var div = document.createElement("div");
+                    div.innerHTML += 'Name:' + data[i].name + '<br>' + 'Description:' + data[i].description + '<hr>';    
+                    container.appendChild(div);
+                }
+                
+                
+            }
+
+
+    }
+</script>
+
+</html>
