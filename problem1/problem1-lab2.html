@@ -5,8 +5,9 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="main-body">
     <h1>Phone Directory</h1>
+    <div id="main-body">
+    
     <div id="Adding">
     <input placeholder="Name" type="search" id="name" >
     <input type="tel" id="number" placeholder="Mobile Number">
@@ -23,10 +24,10 @@
     <table id="table1">
         
         <tr class="header">
-            <th>
+            <th onclick="sortAsc()">
                 Name
             </th>
-            <th onclick="sortAsc()">
+            <th>
                 Number
             </th>
             <th>Email</th>
@@ -40,7 +41,6 @@
 
 </div>
 <script>
-    var asc=false;
     function AddContact() {
        
        var newTable = document.getElementById("table1")
@@ -59,9 +59,9 @@
        
         cell3.innerHTML = document.getElementById("email").value;
 
-        document.getElementById("name").value = " ";
-        document.getElementById("number").value = " ";
-        document.getElementById("email").value = " ";
+        document.getElementById("name").value = "";
+        document.getElementById("number").value = "";
+        document.getElementById("email").value = "";
        }
        else {
             document.getElementById("error").style.display = "inline-block";
@@ -107,41 +107,62 @@
 
     function sortAsc() {
         var table = document.getElementById("table1");
-        var first,second,row, startSort, i;
+        var first,second,row, startSort, startSortDesc, i, sort="asc", count=0;;
         var sorting = true;  
-        
         while(sorting) {
             sorting = false;
             row = table.rows;
+            
 
             
             for(i=1; i < (row.length - 1); i++)
             {
                 startSort = false;
+                startSortDesc = false;
                 first = row[i].getElementsByTagName("td")[0];
                 second = row[i+1].getElementsByTagName("td")[0];
-                asc = true;
-
-                if(first.innerHTML.toLowerCase() > second.innerHTML.toLowerCase()) {
+                
+                if(sort =="asc") {
+                if(first.innerHTML.toLowerCase() > second.innerHTML.toLowerCase() ) {
+                    
+                    startSort = true;
+                    
+                    break;
+                }
+               
+            
+            } else if (sort == "desc") {
+                
+                if(first.innerHTML.toLowerCase() < second.innerHTML.toLowerCase()) {
                     
                     startSort = true;
                     break;
                 }
-                else if(first.innerHTML.toLowerCase() < second.innerHTML.toLowerCase()) {
-                    startSortDesc = true;
-                    break;
-                }
-            }
-           }
-            if(startSort) {
-                row[i].parentNode.insertBefore(row[i + 1], row[i]);
-                sorting = true;
-            }
-            else if(startSortDesc) {
-                row[i].parentNode.insertBefore(row[i + 1], row[i]);
-                sorting = true;
             }
         }
+        
+            if(startSort) {
+                
+                row[i].parentNode.insertBefore(row[i + 1], row[i]);
+                sorting =true;
+                
+                count++;
+            } else {
+                if(sort == "asc" && count == 0)
+                {
+                    sort = "desc"
+                    sorting =true;
+
+                }
+            }
+            
+        
+        }
+        
+            
+        
+        
+    }
         
     
     
@@ -165,12 +186,14 @@
         padding-left: 40px;
         width: 600px;
         border-radius: 5px;
+        position: absolute;
+        top: 50px;
     }
 
     #main-body {
         position: absolute;
         top: 30%;
-        left: 50%;
+        left: 48%;
         transform: translate(-50%, -50%);
         height: 355px;
         width: 550px;
@@ -190,5 +213,19 @@
         
     }
 
+    #searchNumber {
+        position: absolute;
+        left: 57%;
+        top: 250px;
+        transform: translate(-50%, -50%);
+    }
+
+    h1 {
+        position: absolute;
+        left: 45%;
+        top: 3%;
+    }
+
+    
 </style>
 </html>
