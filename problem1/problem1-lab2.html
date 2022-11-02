@@ -42,12 +42,16 @@
 </div>
 <script>
     function AddContact() {
-       
+       //adding contact 
        var newTable = document.getElementById("table1")
+       //regex for validating email
        var emailValidate = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+       //regex for validating that input is the alphabet
        var alphaValidate = /^[a-zA-Z ]*$/;
-       if(emailValidate.test(document.getElementById("email").value) && isNaN(document.getElementById("number").value) == false && document.getElementById("number").value.length <= 10 && document.getElementById("name").value.length <= 20 && alphaValidate.test(document.getElementById("name").value))  {
+       //checks if the email is validated, that is less than 40, that the mobile number is just a number, that the number is less than 10, that the name is less than 20, that the name is only letters
+       if(emailValidate.test(document.getElementById("email").value) && document.getElementById("email").value.length <= 40 && isNaN(document.getElementById("number").value) == false && document.getElementById("number").value.length <= 10 && document.getElementById("name").value.length <= 20 && alphaValidate.test(document.getElementById("name").value))  {
         document.getElementById("error").style.display = "none";
+        //appends to table
         var row = newTable.insertRow(-1);
         var cell1 = row.insertCell(0)
         var cell2 = row.insertCell(1)
@@ -59,6 +63,7 @@
        
         cell3.innerHTML = document.getElementById("email").value;
 
+        //clears when a new contact is added
         document.getElementById("name").value = "";
         document.getElementById("number").value = "";
         document.getElementById("email").value = "";
@@ -76,14 +81,18 @@
         var filter = userInput.value.toUpperCase();
         var table = document.getElementById("table1");
         var row = document.getElementsByTagName("tr");
+        //searches through the number
         for (var i=0;i < row.length; i++)
         {
             check = 0;
+            //checks the second element which is mobile number
             tabledivs = row[i].getElementsByTagName("td")[1];
             if(tabledivs)
             {
                 var value = tabledivs.textContent || tabledivs.innerText;
                 if(value.toUpperCase().indexOf(filter) > -1) {
+                    //displays only the result found
+                    
                     row[i].style.display = "";
                     document.getElementById("noresult").style.display = "none";
 
@@ -92,6 +101,7 @@
                 } else {
                     row[i].style.display = "none";
                     if(check == 0) {
+                        //shows no result div if no results are available
                         document.getElementById("noresult").style.display = "inline-block";
                         check = 1;
                     }
@@ -109,6 +119,8 @@
         var table = document.getElementById("table1");
         var first,second,row, startSort, startSortDesc, i, sort="asc", count=0;;
         var sorting = true;  
+
+        //sorts ascending then descending. Goes through while loop until there is no more sorting to be done
         while(sorting) {
             sorting = false;
             row = table.rows;
@@ -122,6 +134,7 @@
                 first = row[i].getElementsByTagName("td")[0];
                 second = row[i+1].getElementsByTagName("td")[0];
                 
+                //sorts ascending
                 if(sort =="asc") {
                 if(first.innerHTML.toLowerCase() > second.innerHTML.toLowerCase() ) {
                     
@@ -131,6 +144,7 @@
                 }
                
             
+                //sorts descending
             } else if (sort == "desc") {
                 
                 if(first.innerHTML.toLowerCase() < second.innerHTML.toLowerCase()) {
@@ -140,7 +154,7 @@
                 }
             }
         }
-        
+            //starts sorting ascending
             if(startSort) {
                 
                 row[i].parentNode.insertBefore(row[i + 1], row[i]);
@@ -148,6 +162,7 @@
                 
                 count++;
             } else {
+                //goes back through loop sorting descending this time
                 if(sort == "asc" && count == 0)
                 {
                     sort = "desc"
