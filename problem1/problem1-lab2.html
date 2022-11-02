@@ -49,7 +49,7 @@
        //regex for validating that input is the alphabet
        var alphaValidate = /^[a-zA-Z ]*$/;
        //checks if the email is validated, that is less than 40, that the mobile number is just a number, that the number is less than 10, that the name is less than 20, that the name is only letters
-       if(emailValidate.test(document.getElementById("email").value) && document.getElementById("email").value.length <= 40 && isNaN(document.getElementById("number").value) == false && document.getElementById("number").value.length <= 10 && document.getElementById("name").value.length <= 20 && alphaValidate.test(document.getElementById("name").value))  {
+       if(emailValidate.test(document.getElementById("email").value) && document.getElementById("email").value.length < 40 && isNaN(document.getElementById("number").value) == false && document.getElementById("number").value.length == 10 && document.getElementById("name").value.length <= 20 && alphaValidate.test(document.getElementById("name").value))  {
         document.getElementById("error").style.display = "none";
         //appends to table
         var row = newTable.insertRow(-1);
@@ -92,9 +92,9 @@
                 var value = tabledivs.textContent || tabledivs.innerText;
                 if(value.toUpperCase().indexOf(filter) > -1) {
                     //displays only the result found
-                    
-                    row[i].style.display = "";
                     document.getElementById("noresult").style.display = "none";
+
+                    row[i].style.display = "";
 
 
 
@@ -102,8 +102,9 @@
                     row[i].style.display = "none";
                     if(check == 0) {
                         //shows no result div if no results are available
-                        document.getElementById("noresult").style.display = "inline-block";
                         check = 1;
+                        document.getElementById("noresult").style.display = "inline-block";
+                        
                     }
                     
                     

@@ -38,7 +38,7 @@
         left: 200px;
         height: 340px;
         width: 400px;
-        overflow-y: scroll;
+        overflow-y: hidden;
         margin-top: 30px;
     }
 
@@ -78,6 +78,7 @@
 <script>
     function search() {
         let user = document.getElementById('searchUser').value;
+        //fetches profile data from user input
         fetch('https://api.github.com/users/' + user)
             .then(function (response) {
             return response.json();
@@ -90,6 +91,7 @@
             })
 
             
+            //fetches the repo data from user input
             fetch('https://api.github.com/users/' + user + '/repos')
             .then(function (response) {
             return response.json();
@@ -101,6 +103,7 @@
             console.log(err);
             });
             
+            //profile data function that adds each element of the profile to the page
             function addData(data) {
                 var img = document.getElementById('picture');
                 img.src = data.avatar_url;
@@ -115,11 +118,19 @@
 
             
 
+            //repo function that adds the name and the description to the page
             function AddRepoData(data) {
                 var container = document.getElementById("user-repos");
                 container.innerHTML = "<h4>User Repos</h4>";
                 for(let i=0;i <data.length;i++) {
-                    
+                    //adds a scrollable element if the number of repos is more than 5. Otherwise keeps it hidden
+                    if(data.length > 5) {
+                        document.getElementById("user-repos").style.overflowY = "scroll";
+                    }
+                    else {
+                        document.getElementById("user-repos").style.overflowY = "hidden";
+
+                    }
                     var div = document.createElement("div");
                     div.innerHTML += 'Name:' + data[i].name + '<br>' + 'Description:' + data[i].description + '<hr>';    
                     container.appendChild(div);
