@@ -1,4 +1,4 @@
-Github Link - C:\Users\ethan\OneDrive\Documents\GitHub\Lab2
+Github Link - https://github.com/ethanm32/Lab2
 
 Q1 - Problem 1
 
@@ -22,6 +22,8 @@ Q2 - Problem 2
 
 - Shows the word frequency of all the body content of posts in the console
 
+Q3 - Problem 1
 
-
-Q3 - 
+Displays picture, name, username, email, location and no of gists along with repo data when
+a github username is entered and searched. It also makes the user repos section scrollable if 
+there is more than 5 repos. It uses the github api and fetch to achieve this.
